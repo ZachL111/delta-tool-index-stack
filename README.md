@@ -1,69 +1,40 @@
 # delta-tool-index-stack
 
-`delta-tool-index-stack` is a focused Python codebase around package a Python local lab for index analysis with capacity fixtures, allocation and spill reports, and documented operating limits. It is meant to be easy to inspect, run, and extend without a hosted service.
+`delta-tool-index-stack` is a Python project in cli tools. Its focus is to package a Python local lab for index analysis with capacity fixtures, allocation and spill reports, and documented operating limits.
 
-## Delta Tool Index Stack Walkthrough
+## Purpose
 
-I would read the project from the outside in: command, fixture, model, then roadmap. That keeps the cli tools idea grounded in files that can be checked locally.
+This is intentionally local and self-contained so it can be inspected without credentials, services, or seeded history.
 
-## Reason For The Project
+## Delta Tool Index Stack Review Notes
 
-This is not a wrapper around a service. It is a self-contained project that shows how the model behaves when demand, capacity, latency, risk, and weight move in different directions.
+Start with `file span` and `terminal width`. Those cases create the widest score spread in this repo, so they are the best quick check when the model changes.
 
-## How It Is Put Together
+## What Is Covered
 
-The project is organized around a compact model rather than a large framework. Inputs are scored, classified, and checked against golden fixtures. The constants live in code and are mirrored in metadata so documentation drift is easy to catch. The Python code favors standard library tools and direct tests over framework weight.
+- `fixtures/domain_review.csv` adds cases for file span and terminal width.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/delta-tool-index-walkthrough.md` walks through the case spread.
+- The Python code includes a review path for `file span` and `terminal width`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Data Notes
+## Implementation Notes
 
-`examples/extended_cases.csv` adds six named cases. I kept the names plain so failures are easy to read in a terminal: baseline, pressure, surge, degraded, recovery, and boundary.
+The fixture data drives the tests. The code stays thin, while `metadata/domain-review.json` and `config/review-profile.json` explain what each case is meant to protect.
 
-## Capabilities
+The added Python path is deliberately direct, with fixtures doing most of the explaining.
 
-- Uses fixture data to keep argument shape changes visible in code review.
-- Includes extended examples for file input, including `recovery` and `degraded`.
-- Documents repeatable reports tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
-
-## Getting It Running
-
-The only required setup is the local Python toolchain. After cloning, stay in the repo root so fixture paths resolve correctly.
-
-## Check The Work
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
-
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Where Things Live
-
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-- `pyproject.toml`: Python project metadata
-
-## Tradeoffs
-
-This code is local-first. It makes no claim about deployed usage and avoids credentials, hosted state, and environment-specific setup.
-
-## Possible Extensions
-
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Split the scoring constants into a typed configuration object and validate it before use.
-- Add one more cli tools fixture that focuses on a malformed or borderline input.
-
-## Command Examples
+## Command
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Audit Path
+
+The verifier is intentionally local. It should fail if the fixture score math, lane assignment, or language-specific test drifts.
+
+## Limits
+
+This remains a local project with deterministic fixtures. It does not depend on credentials, hosted services, or live data. Future work should add richer malformed inputs before widening the public API.

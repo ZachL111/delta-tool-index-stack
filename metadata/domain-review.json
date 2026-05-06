@@ -1,0 +1,73 @@
+{
+  "repo": "delta-tool-index-stack",
+  "language": "Python",
+  "category": "CLI tools",
+  "goal": "Package a Python local lab for index analysis with capacity fixtures, allocation and spill reports, and documented operating limits.",
+  "review_model": {
+    "terms": [
+      "file span",
+      "terminal width",
+      "argument risk",
+      "report density"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "file span",
+      "signal": 79,
+      "slack": 48,
+      "drag": 29,
+      "confidence": 69,
+      "score": 188,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "terminal width",
+      "signal": 58,
+      "slack": 37,
+      "drag": 31,
+      "confidence": 51,
+      "score": 111,
+      "lane": "watch"
+    },
+    {
+      "name": "edge",
+      "focus": "argument risk",
+      "signal": 78,
+      "slack": 32,
+      "drag": 22,
+      "confidence": 59,
+      "score": 181,
+      "lane": "ship"
+    },
+    {
+      "name": "recovery",
+      "focus": "report density",
+      "signal": 53,
+      "slack": 38,
+      "drag": 16,
+      "confidence": 61,
+      "score": 157,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "file span",
+      "signal": 73,
+      "slack": 51,
+      "drag": 11,
+      "confidence": 61,
+      "score": 225,
+      "lane": "ship"
+    }
+  ]
+}
